@@ -1,7 +1,7 @@
+#! /usr/bin/env node
 import { select, input } from '@inquirer/prompts';
 import { exec } from 'child_process';
 import * as util from 'util';
-
 
 const execPromise = util.promisify(exec);
 
