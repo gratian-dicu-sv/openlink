@@ -3,6 +3,20 @@ import { select, input } from '@inquirer/prompts';
 import { exec } from 'child_process';
 import { type } from 'os';
 import * as util from 'util';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Read and parse package.json
+const packageJson = JSON.parse(
+  readFileSync(join(__dirname, 'package.json'), 'utf-8')
+);
+const version = packageJson.version;
+
 
 const execPromise = util.promisify(exec);
 
@@ -45,7 +59,7 @@ const androidDevices = rawAndroidDevices.stdout.split('\n').map(line => line.tri
 
 const devices = [...iosDevices, ...androidDevices];
 
-console.info("Running: npm run start | tee logsession.txt  - and openlink in the same folder will capture the invite link automatically ");
+console.info(`[OpenLink v${version}] Running: npm run start | tee logsession.txt  - and openlink in the same folder will capture the invite link automatically`);
 
 
 const selectedDeviceID = await select({ 
