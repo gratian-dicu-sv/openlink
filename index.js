@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 import { select, input } from '@inquirer/prompts';
 import { exec } from 'child_process';
-import { type } from 'os';
 import * as util from 'util';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
@@ -84,9 +83,6 @@ try {
 const link = await input({ message: 'Enter your link', default: extractedInviteLink || '' });
 
 const result = open(selectedDeviceObject, link);
-
-console.warn(result.stdout);
-console.error(result.stderr);
 
 if (result.error) {
     console.error('Error:', result.error);
